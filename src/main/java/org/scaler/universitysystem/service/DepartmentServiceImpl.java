@@ -37,6 +37,10 @@ public class DepartmentServiceImpl implements DepartmentService{
 
     @Override
     public Department createDepartment(Department department) {
+        //if name or description is null, throw an exception
+        if(department.getName() == null || department.getDescription() == null){
+            throw new IllegalArgumentException("Name and Description are mandatory fields");
+        }
         return departmentRepository.save(department);
     }
 

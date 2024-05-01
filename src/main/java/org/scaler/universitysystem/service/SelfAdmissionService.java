@@ -28,6 +28,13 @@ public class SelfAdmissionService implements AdmissionService{
 
     @Override
     public Admission createAdmission(Admission admission) {
+        // if applicant or program is null, throw an exception
+        if(admission.getApplicant() == null || admission.getProgram() == null){
+            throw new IllegalArgumentException("Applicant and Program are mandatory fields");
+        }
+
+
+        // Check if the applicant and program exist
         Applicant applicant = applicantRepository.findById(admission.getApplicant().getId()).get();
         Program program = programRepository.findById(admission.getProgram().getId()).get();
 

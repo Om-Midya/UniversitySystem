@@ -37,6 +37,12 @@ public class SelfProgramService implements ProgramService {
 
     @Override
     public Program createProgram(Program program) {
+        //if name or duration or degreeLevel or department is null, throw an exception
+        if (program.getName() == null || program.getDuration() == 0 || program.getDegreeLevel() == null || program.getDepartment() == null) {
+            throw new IllegalArgumentException("Name, Duration, Degree Level and Department are mandatory fields");
+        }
+
+
         Department department = program.getDepartment();
         if (department.getId()!=null){
             Optional<Department> optionalDepartment = departmentRepository.findById(department.getId());

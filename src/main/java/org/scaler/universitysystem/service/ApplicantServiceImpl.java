@@ -36,6 +36,10 @@ public class ApplicantServiceImpl implements ApplicantService{
 
     @Override
     public Applicant saveApplicant(Applicant applicant) {
+        //if name or date or email or dateOfBirth is null, throw an exception
+        if(applicant.getName() == null || applicant.getEmail() == null || applicant.getAddress() == null || applicant.getDateOfBirth() == null){
+            throw new IllegalArgumentException("Name, Email, Address and Date of Birth are mandatory fields");
+        }
         return applicantRepository.save(applicant);
     }
 

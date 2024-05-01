@@ -19,6 +19,6 @@ public class Admission {
     private Applicant applicant;
     @ManyToOne
     private Program program;
-    private String decision;
+    private Descision decision;
     private Date decisionDate;
 }

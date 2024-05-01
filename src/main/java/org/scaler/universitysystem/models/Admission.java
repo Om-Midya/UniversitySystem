@@ -15,7 +15,7 @@ public class Admission {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @ManyToOne
+    @OneToOne
     private Applicant applicant;
     @ManyToOne
     private Program program;

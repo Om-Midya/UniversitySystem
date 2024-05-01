@@ -2,6 +2,7 @@ package org.scaler.universitysystem.models;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
@@ -9,6 +10,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 public class Applicant {
     @Id
@@ -18,7 +20,7 @@ public class Applicant {
     private String email;
     private String address;
     private Date dateOfBirth;
-    @OneToOne
-    private Admission admission;
-    private String applicationStatus;
+    @OneToMany
+    private List<Admission> allAdmissions;
+    private ApplicationStatus applicationStatus = ApplicationStatus.NOT_APPLIED;
 }

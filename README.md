@@ -79,10 +79,6 @@ To deploy the application to a production environment, you would typically build
 ## Contributing
 If you would like to contribute to this project, please fork the repository and submit a pull request.
 
-## Authors
-- [Om Midya](github.com/Om-Midya) 
-- [Pradyut Fogla](https://github.com/pradyutf)
-
 ## Acknowledgments
 Thanks to all contributors and users of this project.
 

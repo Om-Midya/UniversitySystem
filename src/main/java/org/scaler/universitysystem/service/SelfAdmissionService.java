@@ -1,5 +1,6 @@
 package org.scaler.universitysystem.service;
 
+import org.scaler.universitysystem.exceptions.ApplicantNotFoundException;
 import org.scaler.universitysystem.models.*;
 import org.scaler.universitysystem.repository.AdmissionRepository;
 import org.scaler.universitysystem.repository.ApplicantRepository;
@@ -40,6 +41,9 @@ public class SelfAdmissionService implements AdmissionService{
     public Admission getAdmissionById(Long id) {
 
         Optional<Admission> optionalAdmission = admissionRepository.findById(id);
+        if(optionalAdmission.isEmpty()){
+            throw new ApplicantNotFoundException(id);
+        }
         return optionalAdmission.get();
     }
 
@@ -65,12 +69,16 @@ public class SelfAdmissionService implements AdmissionService{
             applicantRepository.save(applicant);
             return updatedAdmission;
         } else {
-            throw new RuntimeException("Admission not found with id: " + id);
+            throw new ApplicantNotFoundException(id);
         }
     }
 
     @Override
     public void deleteAdmission(Long id) {
+        Optional<Admission> admission = admissionRepository.findById(id);
+        if (admission.isEmpty()){
+            throw new ApplicantNotFoundException(id);
+        }
 
         admissionRepository.deleteById(id);
 
@@ -78,11 +86,19 @@ public class SelfAdmissionService implements AdmissionService{
 
     @Override
     public List<Admission> getAdmissionsByProgram(Long programId) {
+        Optional<Program> program = programRepository.findById(programId);
+        if (program.isEmpty()){
+            throw new ApplicantNotFoundException(programId);
+        }
         return admissionRepository.findByProgramId(programId);
     }
 
     @Override
     public List<Admission> getAdmissionsByApplicant(Long applicantId) {
+        Optional<Applicant> applicant = applicantRepository.findById(applicantId);
+        if (applicant.isEmpty()){
+            throw new ApplicantNotFoundException(applicantId);
+        }
         return admissionRepository.findByApplicantId(applicantId);
     }
 

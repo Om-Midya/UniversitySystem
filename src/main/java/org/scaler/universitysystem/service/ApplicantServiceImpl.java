@@ -1,6 +1,8 @@
 package org.scaler.universitysystem.service;
 
 
+import org.scaler.universitysystem.exceptions.AdmissionNotFoundException;
+import org.scaler.universitysystem.exceptions.ApplicantNotFoundException;
 import org.scaler.universitysystem.models.Applicant;
 import org.scaler.universitysystem.repository.ApplicantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,10 @@ public class ApplicantServiceImpl implements ApplicantService{
 
     @Override
     public Optional<Applicant> getApplicantById(Long id) {
+        Optional<Applicant> applicant = applicantRepository.findById(id);
+        if (applicant.isEmpty()){
+            throw new ApplicantNotFoundException(id);
+        }
         return applicantRepository.findById(id);
     }
 
@@ -41,12 +47,16 @@ public class ApplicantServiceImpl implements ApplicantService{
             return applicantRepository.save(update(existingApplicant.get(), applicant));
         } else {
             // Throw an error or return null
-            throw new RuntimeException("Applicant not found with id: " + applicant.getId());
+            throw new ApplicantNotFoundException(applicant.getId());
         }
     }
 
     @Override
     public void deleteApplicantById(Long id) {
+        Optional<Applicant> applicant = applicantRepository.findById(id);
+        if (applicant.isEmpty()){
+            throw new ApplicantNotFoundException(id);
+        }
         applicantRepository.deleteById(id);
     }
 

@@ -43,6 +43,11 @@ public class SelfAdmissionService implements AdmissionService{
         return optionalAdmission.get();
     }
 
+    @Override
+    public List<Admission> getAllAdmissions() {
+        return admissionRepository.findAll();
+    }
+
 
     @Override
     public Admission updateAdmission(Long id, Admission admission) {

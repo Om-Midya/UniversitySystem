@@ -11,4 +11,5 @@ public interface ProgramService {
     void deleteProgram(Long id);
 
     List<Program> getProgramsByDepartment(Long departmentId);
+    List<Program> getAllPrograms();
 }

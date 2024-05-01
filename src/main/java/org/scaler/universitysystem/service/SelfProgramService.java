@@ -65,6 +65,11 @@ public class SelfProgramService implements ProgramService {
         return programRepository.findByDepartmentId(departmentId);
     }
 
+    @Override
+    public List<Program> getAllPrograms() {
+        return programRepository.findAll();
+    }
+
     public Program update(Program existingProgram, Program updatedProgram) {
         if(updatedProgram.getName() != null)
             existingProgram.setName(updatedProgram.getName());

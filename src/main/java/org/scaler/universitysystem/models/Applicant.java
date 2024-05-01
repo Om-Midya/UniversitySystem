@@ -18,7 +18,6 @@ public class Applicant {
     private String email;
     private String address;
     private Date dateOfBirth;
-    @OneToOne
-    private Admission admission;
+
     private String applicationStatus;
 }

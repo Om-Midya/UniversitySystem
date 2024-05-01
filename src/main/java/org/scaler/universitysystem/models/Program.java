@@ -18,7 +18,5 @@ public class Program {
     @ManyToOne
     private Department department;
     private String degreeLevel;
-    @OneToMany
-    private List<Admission> allAdmissions;
     private int duration;
 }

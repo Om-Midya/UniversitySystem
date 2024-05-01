@@ -1,5 +1,5 @@
 package org.scaler.universitysystem.models;
 
-public enum Descision {
+public enum Decision {
     ACCEPTED, REJECTED, WAITLISTED
 }

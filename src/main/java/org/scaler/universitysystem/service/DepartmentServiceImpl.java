@@ -3,6 +3,7 @@ package org.scaler.universitysystem.service;
 import org.scaler.universitysystem.models.Department;
 import org.scaler.universitysystem.models.Program;
 import org.scaler.universitysystem.repository.DepartmentRepository;
+import org.scaler.universitysystem.repository.ProgramRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +13,11 @@ import java.util.Optional;
 @Service
 public class DepartmentServiceImpl implements DepartmentService{
     private final DepartmentRepository departmentRepository;
+    private ProgramRepository programRepository;
 
-    public DepartmentServiceImpl(DepartmentRepository departmentRepository) {
+    public DepartmentServiceImpl(DepartmentRepository departmentRepository, ProgramRepository programRepository) {
         this.departmentRepository = departmentRepository;
+        this.programRepository = programRepository;
     }
 
     @Override
@@ -23,8 +26,8 @@ public class DepartmentServiceImpl implements DepartmentService{
     }
 
     @Override
-    public Optional<Department> getDepartmentById(Long id) {
-        return departmentRepository.findById(id);
+    public Department getDepartmentById(Long id) {
+        return departmentRepository.findById(id).get();
     }
 
     @Override
@@ -36,7 +39,7 @@ public class DepartmentServiceImpl implements DepartmentService{
     public Department updateDepartment(Long id, Department department) {
         Optional<Department> existingDepartment = departmentRepository.findById(id);
         if (existingDepartment.isPresent()) {
-            return update(existingDepartment.get(), department);
+            return departmentRepository.save(update(existingDepartment.get(), department));
         } else {
             // Throw an error or return null
             throw new RuntimeException("Department not found with id: " + id);
@@ -50,11 +53,7 @@ public class DepartmentServiceImpl implements DepartmentService{
 
     @Override
     public List<Program> getProgramsByDepartmentId(Long departmentId) {
-        Department department = departmentRepository.findById(departmentId).orElse(null);
-        if (department != null) {
-            return department.getPrograms();
-        }
-        return null;
+        return programRepository.findByDepartmentId(departmentId);
     }
 
     public Department update(Department existingDepartment, Department updatedDepartment) {

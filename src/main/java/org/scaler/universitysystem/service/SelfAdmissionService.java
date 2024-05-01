@@ -46,11 +46,22 @@ public class SelfAdmissionService implements AdmissionService{
 
     @Override
     public Admission updateAdmission(Long id, Admission admission) {
-        Applicant applicant = applicantRepository.findById(admission.getApplicant().getId()).get();
-        if (admission.getDecision() == Decision.ACCEPTED){
-            applicant.setApplicationStatus(ApplicationStatus.ADMITTED);
+//        Applicant applicant = applicantRepository.findById(admission.getApplicant().getId()).get();
+//        if (admission.getDecision() == Decision.ACCEPTED){
+//            applicant.setApplicationStatus(ApplicationStatus.ADMITTED);
+//        }
+        Optional<Admission> existingAdmission = admissionRepository.findById(id);
+        if (existingAdmission.isPresent()) {
+            Admission updatedAdmission = admissionRepository.save(update(existingAdmission.get(), admission));
+            Applicant applicant = applicantRepository.findById(updatedAdmission.getApplicant().getId()).get();
+            if (updatedAdmission.getDecision() == Decision.ACCEPTED){
+                applicant.setApplicationStatus(ApplicationStatus.ADMITTED);
+            }
+            applicantRepository.save(applicant);
+            return updatedAdmission;
+        } else {
+            throw new RuntimeException("Admission not found with id: " + id);
         }
-        return admissionRepository.save(admission);
     }
 
     @Override
@@ -68,5 +79,14 @@ public class SelfAdmissionService implements AdmissionService{
     @Override
     public List<Admission> getAdmissionsByApplicant(Long applicantId) {
         return admissionRepository.findByApplicantId(applicantId);
+    }
+
+    public Admission update(Admission existingAdmission, Admission updatedAdmission) {
+        if(updatedAdmission.getDecision() != null)
+            existingAdmission.setDecision(updatedAdmission.getDecision());
+        if(updatedAdmission.getDecisionDate() != null){
+            existingAdmission.setDecisionDate(updatedAdmission.getDecisionDate());
+        }
+        return existingAdmission;
     }
 }

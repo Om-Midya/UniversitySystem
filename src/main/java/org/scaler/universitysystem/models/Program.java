@@ -22,4 +22,5 @@ public class Program {
     @ManyToOne
     private Department department;
     private DegreeLevel degreeLevel;
+    private int duration;
 }

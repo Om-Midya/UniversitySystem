@@ -37,7 +37,8 @@ public class ApplicantServiceImpl implements ApplicantService{
     public Applicant updateApplicant(Applicant applicant) {
         Optional<Applicant> existingApplicant = applicantRepository.findById(applicant.getId());
         if (existingApplicant.isPresent()) {
-            return update(existingApplicant.get(), applicant);
+
+            return applicantRepository.save(update(existingApplicant.get(), applicant));
         } else {
             // Throw an error or return null
             throw new RuntimeException("Applicant not found with id: " + applicant.getId());

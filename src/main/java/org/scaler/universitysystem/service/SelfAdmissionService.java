@@ -1,6 +1,8 @@
 package org.scaler.universitysystem.service;
 
+import org.scaler.universitysystem.exceptions.AdmissionNotFoundException;
 import org.scaler.universitysystem.exceptions.ApplicantNotFoundException;
+import org.scaler.universitysystem.exceptions.ProgramNotFoundException;
 import org.scaler.universitysystem.models.*;
 import org.scaler.universitysystem.repository.AdmissionRepository;
 import org.scaler.universitysystem.repository.ApplicantRepository;
@@ -28,6 +30,13 @@ public class SelfAdmissionService implements AdmissionService{
     public Admission createAdmission(Admission admission) {
         Applicant applicant = applicantRepository.findById(admission.getApplicant().getId()).get();
         Program program = programRepository.findById(admission.getProgram().getId()).get();
+
+        if (applicant == null){
+            throw new ApplicantNotFoundException(admission.getApplicant().getId());
+        }
+        if (program == null){
+            throw new ProgramNotFoundException(admission.getProgram().getId());
+        }
         admission.setDecision(Decision.WAITLISTED);
         applicant.setApplicationStatus(ApplicationStatus.APPLIED);
         Admission savedAdmission = admissionRepository.save(admission);
@@ -42,7 +51,7 @@ public class SelfAdmissionService implements AdmissionService{
 
         Optional<Admission> optionalAdmission = admissionRepository.findById(id);
         if(optionalAdmission.isEmpty()){
-            throw new ApplicantNotFoundException(id);
+            throw new AdmissionNotFoundException(id);
         }
         return optionalAdmission.get();
     }
@@ -69,7 +78,7 @@ public class SelfAdmissionService implements AdmissionService{
             applicantRepository.save(applicant);
             return updatedAdmission;
         } else {
-            throw new ApplicantNotFoundException(id);
+            throw new AdmissionNotFoundException(id);
         }
     }
 
@@ -77,7 +86,7 @@ public class SelfAdmissionService implements AdmissionService{
     public void deleteAdmission(Long id) {
         Optional<Admission> admission = admissionRepository.findById(id);
         if (admission.isEmpty()){
-            throw new ApplicantNotFoundException(id);
+            throw new AdmissionNotFoundException(id);
         }
 
         admissionRepository.deleteById(id);
@@ -88,7 +97,7 @@ public class SelfAdmissionService implements AdmissionService{
     public List<Admission> getAdmissionsByProgram(Long programId) {
         Optional<Program> program = programRepository.findById(programId);
         if (program.isEmpty()){
-            throw new ApplicantNotFoundException(programId);
+            throw new ProgramNotFoundException(programId);
         }
         return admissionRepository.findByProgramId(programId);
     }

@@ -29,10 +29,9 @@ public class SelfAdmissionService implements AdmissionService{
         Program program = programRepository.findById(admission.getProgram().getId()).get();
         admission.setDecision(Decision.WAITLISTED);
         applicant.setApplicationStatus(ApplicationStatus.APPLIED);
+        admission.setApplicant(applicant);
+        admission.setProgram(program);
         Admission savedAdmission = admissionRepository.save(admission);
-
-        savedAdmission.setApplicant(applicant);
-        savedAdmission.setProgram(program);
         return savedAdmission;
     }
 

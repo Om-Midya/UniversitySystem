@@ -13,7 +13,7 @@ import java.util.Date;
 @Entity
 public class Admission {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @OneToOne
     private Applicant applicant;

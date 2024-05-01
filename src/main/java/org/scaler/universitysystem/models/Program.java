@@ -21,6 +21,5 @@ public class Program {
     private String name;
     @ManyToOne
     private Department department;
-    private String degreeLevel;
-
+    private DegreeLevel degreeLevel;
 }

@@ -35,11 +35,33 @@ public class ApplicantServiceImpl implements ApplicantService{
 
     @Override
     public Applicant updateApplicant(Applicant applicant) {
-        return applicantRepository.save(applicant);
+        Optional<Applicant> existingApplicant = applicantRepository.findById(applicant.getId());
+        if (existingApplicant.isPresent()) {
+            return update(existingApplicant.get(), applicant);
+        } else {
+            // Throw an error or return null
+            throw new RuntimeException("Applicant not found with id: " + applicant.getId());
+        }
     }
 
     @Override
     public void deleteApplicantById(Long id) {
         applicantRepository.deleteById(id);
+    }
+
+    public Applicant update(Applicant existingApplicant, Applicant updatedApplicant){
+        if(updatedApplicant.getName() != null){
+            existingApplicant.setName(updatedApplicant.getName());
+        }
+        if(updatedApplicant.getEmail() != null){
+            existingApplicant.setEmail(updatedApplicant.getEmail());
+        }
+        if(updatedApplicant.getAddress() != null){
+            existingApplicant.setAddress(updatedApplicant.getAddress());
+        }
+        if(updatedApplicant.getDateOfBirth() != null){
+            existingApplicant.setDateOfBirth(updatedApplicant.getDateOfBirth());
+        }
+        return existingApplicant;
     }
 }

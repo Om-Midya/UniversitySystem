@@ -19,6 +19,7 @@ public class Admission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne
     private Applicant applicant;
     @ManyToOne

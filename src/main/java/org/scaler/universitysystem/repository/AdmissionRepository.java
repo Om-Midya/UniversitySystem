@@ -16,6 +16,9 @@ public interface AdmissionRepository extends JpaRepository<Admission, Long> {
     @Override
     void deleteById(Long id);
 
+    // list of all admissions
+    List<Admission> findAll();
+
 
     // list of admissions by program id
     List<Admission> findByProgramId(Long programId);

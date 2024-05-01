@@ -47,6 +47,14 @@ public class AdmissionController {
     }
 
 
+    //get all admissions
+    //GET /admissions
+    @GetMapping
+    public List<Admission> getAllAdmissions() {
+        return admissionService.getAllAdmissions();
+    }
+
+
     //get all admissions for a specific Program
     //GET /admissions/program/{programId}
     @GetMapping("/program/{programId}")

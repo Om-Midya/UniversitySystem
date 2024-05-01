@@ -1,5 +1,6 @@
 package org.scaler.universitysystem.service;
 
+import org.scaler.universitysystem.exceptions.DepartmentNotFoundException;
 import org.scaler.universitysystem.models.Department;
 import org.scaler.universitysystem.models.Program;
 import org.scaler.universitysystem.repository.DepartmentRepository;
@@ -27,11 +28,19 @@ public class DepartmentServiceImpl implements DepartmentService{
 
     @Override
     public Department getDepartmentById(Long id) {
+        Optional<Department> department = departmentRepository.findById(id);
+        if (department.isEmpty()){
+            throw new DepartmentNotFoundException(id);
+        }
         return departmentRepository.findById(id).get();
     }
 
     @Override
     public Department createDepartment(Department department) {
+        //if name or description is null, throw an exception
+        if(department.getName() == null || department.getDescription() == null){
+            throw new IllegalArgumentException("Name and Description are mandatory fields");
+        }
         return departmentRepository.save(department);
     }
 
@@ -42,17 +51,25 @@ public class DepartmentServiceImpl implements DepartmentService{
             return departmentRepository.save(update(existingDepartment.get(), department));
         } else {
             // Throw an error or return null
-            throw new RuntimeException("Department not found with id: " + id);
+            throw new DepartmentNotFoundException(id);
         }
     }
 
     @Override
     public void deleteDepartment(Long id) {
+        Optional<Department> department = departmentRepository.findById(id);
+        if (department.isEmpty()){
+            throw new DepartmentNotFoundException(id);
+        }
         departmentRepository.deleteById(id);
     }
 
     @Override
     public List<Program> getProgramsByDepartmentId(Long departmentId) {
+        Optional<Department> department = departmentRepository.findById(departmentId);
+        if (department.isEmpty()){
+            throw new DepartmentNotFoundException(departmentId);
+        }
         return programRepository.findByDepartmentId(departmentId);
     }
 

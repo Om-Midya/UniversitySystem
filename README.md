@@ -16,6 +16,10 @@ This is a Spring Boot application that manages the admission process of a univer
 - MySQL
 - Maven
 
+### Class Diagram
+<img src="https://github.com/purvanshh/UniversitySystem/assets/147030767/60c010d3-5fd9-4870-a65f-08317589f2ff" alt="Class Diagram" width="500">
+
+
 ### Installation
 1. Clone the repository to your local machine using `git clone https://github.com/your-repository-url`.
 2. Navigate to the project directory.
@@ -33,6 +37,10 @@ You can run the application using Maven with the following command:
 ```bash
 mvn spring-boot:run
 ```
+### Database Schema Diagram
+<img src="https://github.com/purvanshh/UniversitySystem/assets/147030767/0de4f705-db6f-4798-887f-415dae53461b" alt="Database Schema Diagram" width="500">
+
+
 
 ## Usage
 The application provides a RESTful API for managing admissions. Here are some example endpoints:

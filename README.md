@@ -70,6 +70,10 @@ The application uses the following models:
 - `id`: Long
 - `name`: String
 
+### Department
+- `id` : Long
+- `name` : String
+
 ## Database Schema
 The application uses a MySQL database with tables for `Admission`, `Applicant`, and `Program`. The `Admission` table has a composite unique constraint on `applicant_id` and `program_id`.
 

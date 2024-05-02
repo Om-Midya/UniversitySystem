@@ -1,6 +1,7 @@
 package org.scaler.universitysystem.controllers;
 
 
+import org.scaler.universitysystem.dtos.ApplicantStatusDTO;
 import org.scaler.universitysystem.models.Applicant;
 import org.scaler.universitysystem.service.ApplicantService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,5 +55,11 @@ public class ApplicantController {
                 })
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    @GetMapping("/status/{id}")
+    public ResponseEntity<ApplicantStatusDTO> getApplicantStatus(@PathVariable Long id) {
+        return ResponseEntity.ok(applicantService.getApplicantStatus(id));
+    }
+
 
 }

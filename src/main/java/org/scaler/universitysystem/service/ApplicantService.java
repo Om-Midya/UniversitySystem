@@ -1,5 +1,6 @@
 package org.scaler.universitysystem.service;
 
+import org.scaler.universitysystem.dtos.ApplicantStatusDTO;
 import org.scaler.universitysystem.models.Applicant;
 
 import java.util.List;
@@ -11,4 +12,5 @@ public interface ApplicantService {
     public Applicant saveApplicant(Applicant applicant);
     public Applicant updateApplicant(Applicant applicant);
     public void deleteApplicantById(Long id);
+    public ApplicantStatusDTO getApplicantStatus(Long id);
 }

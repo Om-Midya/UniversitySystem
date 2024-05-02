@@ -14,4 +14,5 @@ public interface AdmissionService {
     void deleteAdmission(Long id);
     List<Admission> getAdmissionsByProgram(Long programId);
     List<Admission> getAdmissionsByApplicant(Long applicantId);
+
 }

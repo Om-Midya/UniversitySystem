@@ -1,6 +1,7 @@
 package org.scaler.universitysystem.service;
 
 
+import org.scaler.universitysystem.dtos.ApplicantStatusDTO;
 import org.scaler.universitysystem.exceptions.AdmissionNotFoundException;
 import org.scaler.universitysystem.exceptions.ApplicantNotFoundException;
 import org.scaler.universitysystem.models.Applicant;
@@ -71,6 +72,17 @@ public class ApplicantServiceImpl implements ApplicantService{
             throw new ApplicantNotFoundException(id);
         }
         applicantRepository.deleteById(id);
+    }
+
+    @Override
+    public ApplicantStatusDTO getApplicantStatus(Long id) {
+        logger.info("Getting applicant status by id: {}", id);
+        Optional<Applicant> applicant = applicantRepository.findById(id);
+        if (applicant.isEmpty()){
+            throw new ApplicantNotFoundException(id);
+        }
+        return new ApplicantStatusDTO(applicant.get().getName(),applicant.get().getEmail(), applicant.get().getApplicationStatus());
+
     }
 
     public Applicant update(Applicant existingApplicant, Applicant updatedApplicant){

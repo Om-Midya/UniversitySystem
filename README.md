@@ -85,15 +85,15 @@ Thanks to all contributors and users of this project.
 ## Contact
 For any questions or concerns, please contact Om Midya at om.midya@example.com or via [GitHub](https://github.com/om-midya)
 
-# Project Contributors
+## Project Contributors
 This project has been made possible by the contributions of various individuals. Here's a breakdown of who did what:
 
-**Archisman Midya**: Worked on the Applicant Module and Program Module.
-**Ajai Sharan**: Contributed to the Department Module.
-**Harsh Panchal**: Focused on designing aspects and DTOs (Data Transfer Objects).
-**Pradyut Fogla**: Contributed to both the Admission module and Program module.
-**Purvansh Sahu**: Specialized in exception handling.
-**Sheza Mishal**: Worked on creating the models.
+- **Archisman Midya**: Worked on the Applicant Module and Program Module.
+- **Ajai Sharan**: Contributed to the Department Module.
+- **Harsh Panchal**: Focused on designing aspects and DTOs (Data Transfer Objects).
+- **Pradyut Fogla**: Contributed to both the Admission module and Program module.
+- **Purvansh Sahu**: Specialized in exception handling.
+- **Sheza Mishal**: Worked on creating the models.
 ```
 
 This updated README.md file includes the information about all the possible endpoints and model implementation.

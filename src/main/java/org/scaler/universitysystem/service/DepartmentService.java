@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public interface DepartmentService {
     public List<Department> getAllDepartments();
-    public Optional<Department> getDepartmentById(Long id);
+    public Department getDepartmentById(Long id);
     public Department createDepartment(Department department);
     public Department updateDepartment(Long id,Department department);
     public void deleteDepartment(Long id);

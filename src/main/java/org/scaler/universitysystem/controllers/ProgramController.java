@@ -14,6 +14,11 @@ public class ProgramController {
         this.programService = programService;
     }
 
+    @GetMapping
+    public List<Program> getAllPrograms() {
+        return programService.getAllPrograms();
+    }
+
     @GetMapping("/{id}")
     public Program getProgramById(@PathVariable("id") Long id) {
         return programService.getProgramById(id);

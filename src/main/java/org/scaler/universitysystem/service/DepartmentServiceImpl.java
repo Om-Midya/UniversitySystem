@@ -1,8 +1,12 @@
 package org.scaler.universitysystem.service;
 
+import org.scaler.universitysystem.exceptions.DepartmentNotFoundException;
 import org.scaler.universitysystem.models.Department;
 import org.scaler.universitysystem.models.Program;
 import org.scaler.universitysystem.repository.DepartmentRepository;
+import org.scaler.universitysystem.repository.ProgramRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +16,13 @@ import java.util.Optional;
 @Service
 public class DepartmentServiceImpl implements DepartmentService{
     private final DepartmentRepository departmentRepository;
+    private ProgramRepository programRepository;
 
-    public DepartmentServiceImpl(DepartmentRepository departmentRepository) {
+    private static final Logger logger = LoggerFactory.getLogger(SelfProgramService.class);
+
+    public DepartmentServiceImpl(DepartmentRepository departmentRepository, ProgramRepository programRepository) {
         this.departmentRepository = departmentRepository;
+        this.programRepository = programRepository;
     }
 
     @Override
@@ -23,38 +31,55 @@ public class DepartmentServiceImpl implements DepartmentService{
     }
 
     @Override
-    public Optional<Department> getDepartmentById(Long id) {
-        return departmentRepository.findById(id);
+    public Department getDepartmentById(Long id) {
+        logger.info("Getting department by id: {}", id);
+        Optional<Department> department = departmentRepository.findById(id);
+        if (department.isEmpty()){
+            throw new DepartmentNotFoundException(id);
+        }
+        return departmentRepository.findById(id).get();
     }
 
     @Override
     public Department createDepartment(Department department) {
+        logger.info("Creating department with name: {}", department.getName());
+        //if name or description is null, throw an exception
+        if(department.getName() == null || department.getDescription() == null){
+            throw new IllegalArgumentException("Name and Description are mandatory fields");
+        }
         return departmentRepository.save(department);
     }
 
     @Override
     public Department updateDepartment(Long id, Department department) {
+        logger.info("Updating department by id: {}", id);
         Optional<Department> existingDepartment = departmentRepository.findById(id);
         if (existingDepartment.isPresent()) {
-            return update(existingDepartment.get(), department);
+            return departmentRepository.save(update(existingDepartment.get(), department));
         } else {
             // Throw an error or return null
-            throw new RuntimeException("Department not found with id: " + id);
+            throw new DepartmentNotFoundException(id);
         }
     }
 
     @Override
     public void deleteDepartment(Long id) {
+        logger.info("Deleting department by id: {}", id);
+        Optional<Department> department = departmentRepository.findById(id);
+        if (department.isEmpty()){
+            throw new DepartmentNotFoundException(id);
+        }
         departmentRepository.deleteById(id);
     }
 
     @Override
     public List<Program> getProgramsByDepartmentId(Long departmentId) {
-        Department department = departmentRepository.findById(departmentId).orElse(null);
-        if (department != null) {
-            return department.getPrograms();
+        logger.info("Getting programs by department id: {}", departmentId);
+        Optional<Department> department = departmentRepository.findById(departmentId);
+        if (department.isEmpty()){
+            throw new DepartmentNotFoundException(departmentId);
         }
-        return null;
+        return programRepository.findByDepartmentId(departmentId);
     }
 
     public Department update(Department existingDepartment, Department updatedDepartment) {

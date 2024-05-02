@@ -1,6 +1,7 @@
 package org.scaler.universitysystem.repository;
 
 import org.scaler.universitysystem.models.Department;
+import org.scaler.universitysystem.models.Program;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

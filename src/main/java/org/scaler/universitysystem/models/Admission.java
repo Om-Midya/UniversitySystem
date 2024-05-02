@@ -15,10 +15,14 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(uniqueConstraints={
+        @UniqueConstraint(columnNames = {"applicant_id", "program_id"})
+})
 public class Admission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne
     private Applicant applicant;
     @ManyToOne

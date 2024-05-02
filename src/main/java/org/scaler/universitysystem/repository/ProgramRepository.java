@@ -14,7 +14,11 @@ public interface ProgramRepository extends JpaRepository<Program, Long> {
     @Override
     void deleteById(Long id);
 
+    // list of all programs
+    List<Program> findAll();
+
     // list of programs by department id
     List<Program> findByDepartmentId(Long departmentId);
+
 
 }

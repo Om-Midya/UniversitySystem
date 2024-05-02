@@ -34,6 +34,15 @@ You can run the application using Maven with the following command:
 mvn spring-boot:run
 ```
 
+
+### Class Diagram
+<img src="https://github.com/purvanshh/UniversitySystem/assets/147030767/60c010d3-5fd9-4870-a65f-08317589f2ff" alt="Class Diagram" width="500">
+
+### Database Schema Diagram
+<img src="https://github.com/purvanshh/UniversitySystem/assets/147030767/0de4f705-db6f-4798-887f-415dae53461b" alt="Database Schema Diagram" width="500">
+
+
+
 ## Usage
 The application provides a RESTful API for managing admissions. Here are some example endpoints:
 
@@ -84,16 +93,6 @@ Thanks to all contributors and users of this project.
 
 ## Contact
 For any questions or concerns, please contact Om Midya at om.midya@example.com or via [GitHub](https://github.com/om-midya)
-
-## Project Contributors
-This project has been made possible by the contributions of various individuals. Here's a breakdown of who did what:
-
-- **Archisman Midya**: Worked on the Applicant Module and Program Module.
-- **Ajai Sharan**: Contributed to the Department Module.
-- **Harsh Panchal**: Focused on designing aspects and DTOs (Data Transfer Objects).
-- **Pradyut Fogla**: Contributed to both the Admission module and Program module.
-- **Purvansh Sahu**: Specialized in exception handling.
-- **Sheza Mishal**: Worked on creating the models.
 ```
 
 This updated README.md file includes the information about all the possible endpoints and model implementation.
